@@ -5251,6 +5251,7 @@ name = "workspace-hack"
 version = "0.1.0"
 dependencies = [
  "aho-corasick",
+ "anyhow",
  "axum",
  "axum-core",
  "bstr",
@@ -5258,6 +5259,7 @@ dependencies = [
  "cookie",
  "crossbeam-utils",
  "deadpool",
+ "displaydoc",
  "either",
  "form_urlencoded",
  "futures",
@@ -5280,8 +5282,6 @@ dependencies = [
  "num-traits",
  "once_cell",
  "percent-encoding",
- "proc-macro2",
- "quote",
  "rand 0.8.7",
  "regex",
  "regex-automata",
