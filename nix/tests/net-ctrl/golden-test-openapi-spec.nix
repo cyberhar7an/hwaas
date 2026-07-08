@@ -13,5 +13,16 @@ in
 runCommand "golden-test-openapi-spec" { inherit jd-diff-patch; } ''
   mkdir -p $out
 
-  ${jd-diff-patch}/bin/jd -set ${expected-oas} ${oas}
+  if ! ${jd-diff-patch}/bin/jd -set ${expected-oas} ${oas}; then
+    echo -ne "\e[31;1m"
+    cat <<TEXT
+  OpenAPI specification deviates from expectations located at '${expected-oas}'
+  This means you introduced changes to the OpenAPI specification that may influence existing consumers.
+  If you're aware of this and want to overwrite the old config, run:
+
+      nix run .#regen-expected-oas
+  TEXT
+    echo -ne "\e[0m"
+    exit 1
+  fi 1>&2
 ''

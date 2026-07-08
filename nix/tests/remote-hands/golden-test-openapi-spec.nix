@@ -12,27 +12,26 @@ let
   expected = ../../../expected-oas;
 in
 runCommand "golden-test-openapi-spec" { inherit jd-diff-patch; } ''
-  EXIT_CODE=0
   for FILE in ${expected}/remote-* ${remote-hands-oas}/*; do
     basename "$FILE"
   done | sort | uniq | while read FILE; do
     echo "Comparing OpenAPI spec $FILE"
-    ${jd-diff-patch}/bin/jd -set ${expected}/$FILE ${remote-hands-oas}/$FILE
-    CODE=$?
-    if [ $CODE != 0 ]; then
-      EXIT_CODE=$CODE
-    fi
+    if ! ${jd-diff-patch}/bin/jd -set ${expected}/$FILE ${remote-hands-oas}/$FILE; then
+      echo -ne "\e[31;1m"
+      cat <<TEXT
+  OpenAPI specification deviates from expectations located at '${expected}/$FILE'
+  This means you introduced changes to the OpenAPI specification that may influence existing consumers.
+  If you're aware of this and want to overwrite the old config, run:
+
+      nix run .#regen-expected-oas
+  TEXT
+      echo -ne "\e[0m"
+      exit 1
+    fi 1>&2
+
     echo "Validating OpenAPI spec $FILE"
     ${openapi-generator-cli}/bin/openapi-generator-cli validate -i ${remote-hands-oas}/$FILE
-    CODE=$?
-    if [ $CODE != 0 ]; then
-      EXIT_CODE=$CODE
-    fi
   done
 
-  if [ $EXIT_CODE != 0 ]; then
-    exit $EXIT_CODE
-  else
-    touch $out
-  fi
+  touch $out
 ''
