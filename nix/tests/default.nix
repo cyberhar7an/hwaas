@@ -12,4 +12,14 @@ _: {
     ./contextapi
     ./user-tooling
   ];
+  perSystem =
+    { pkgs, config, ... }:
+    {
+      checks = {
+        openapi-spec-golden-test = pkgs.callPackage ./openapi.nix {
+          inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
+          inherit (config.packages) contextapi-oas remote-hands-oas net-ctrl-oas;
+        };
+      };
+    };
 }

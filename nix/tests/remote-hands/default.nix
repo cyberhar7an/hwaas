@@ -7,14 +7,11 @@ let
   modules = config.flake.nixosModules;
 in
 {
-  perSystem = { pkgs, config, ... }:
+  perSystem = { pkgs, ... }:
 
   {
     checks = {
       remote-hands-check-otel-traces = pkgs.callPackage ./check-otel-traces.nix { inherit modules; };
-      openapi-spec-remote-hands-golden-test = pkgs.callPackage ./golden-test-openapi-spec.nix {
-        inherit (config.packages) remote-hands-oas;
-      };
       remote-hands-remote-auxiliary = pkgs.callPackage ./remote-auxiliary.nix { inherit modules; };
       remote-hands-remote-power = pkgs.callPackage ./remote-power.nix { inherit modules; };
       remote-hands-remote-serial-echo = pkgs.callPackage ./remote-serial-echo.nix { inherit modules; };
