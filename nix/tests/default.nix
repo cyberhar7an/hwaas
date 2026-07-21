@@ -13,44 +13,70 @@ _: {
     ./user-tooling
   ];
   perSystem =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     let
       expected-oas = ../../expected-oas;
-    in {
-      checks.openapi-spec-contextapi = pkgs.callPackage ./openapi2.nix {
-        inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
-        expected = expected-oas + /contextapi.openapi.json;
-        current = config.packages.contextapi-oas;
+      /**
+        Mapping from OAS name fragment to a "package definition" that tells us
+        where to find the respective OAS file. This is only necessary because
+        the `remote-hands` package builds 4 different OAS files rather than a
+        single one like all other packages do.
+
+        If you add a new package that provides an OAS, just add the necessary
+        entry below.
+      */
+      name2package = {
+        contextapi.package = config.packages.contextapi-oas;
+        net-ctrl.package = config.packages.net-ctrl-oas;
+        hwaas.package = config.packages.hwaas-oas;
+        remote-auxiliary = {
+          package = config.packages.remote-hands-oas;
+          expected-oas-file = "remote-auxiliary.openapi.json";
+        };
+        remote-power = {
+          package = config.packages.remote-hands-oas;
+          expected-oas-file = "remote-power.openapi.json";
+        };
+        remote-serial = {
+          package = config.packages.remote-hands-oas;
+          expected-oas-file = "remote-serial.openapi.json";
+        };
+        remote-usb = {
+          package = config.packages.remote-hands-oas;
+          expected-oas-file = "remote-usb.openapi.json";
+        };
       };
-      checks.openapi-spec-net-ctrl = pkgs.callPackage ./openapi2.nix {
-        inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
-        expected = expected-oas + /net-ctrl.openapi.json;
-        current = config.packages.net-ctrl-oas;
-      };
-      checks.openapi-spec-hwaas = pkgs.callPackage ./openapi2.nix {
-        inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
-        expected = expected-oas + /hwaas.openapi.json;
-        current = config.packages.hwaas-oas;
-      };
-      checks.openapi-spec-remote-auxiliary = pkgs.callPackage ./openapi2.nix {
-        inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
-        expected = expected-oas + /remote-auxiliary.openapi.json;
-        current = config.packages.remote-hands-oas + /remote-auxiliary.openapi.json;
-      };
-      checks.openapi-spec-remote-power = pkgs.callPackage ./openapi2.nix {
-        inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
-        expected = expected-oas + /remote-power.openapi.json;
-        current = config.packages.remote-hands-oas + /remote-power.openapi.json;
-      };
-      checks.openapi-spec-remote-serial = pkgs.callPackage ./openapi2.nix {
-        inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
-        expected = expected-oas + /remote-serial.openapi.json;
-        current = config.packages.remote-hands-oas + /remote-serial.openapi.json;
-      };
-      checks.openapi-spec-remote-usb = pkgs.callPackage ./openapi2.nix {
-        inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
-        expected = expected-oas + /remote-usb.openapi.json;
-        current = config.packages.remote-hands-oas + /remote-usb.openapi.json;
-      };
+      /**
+        Generate the check for an OAS file.
+
+        # Inputs
+
+        `name`
+        : Name fragment of the OAS file, used to identify both the file and the resulting check.
+
+        `value`
+        : "Package definition" used to look up correct files, see `name2package`.
+      */
+      package_gen =
+        name: value:
+        let
+          check-name = "openapi-spec-" + name;
+          expected-oas-file = value.expected-oas-file or (name + ".openapi.json");
+        in
+        {
+          ${check-name} = pkgs.callPackage ./openapi.nix {
+            inherit (pkgs) jd-diff-patch openapi-generator-cli runCommand;
+            expected = expected-oas + "/${expected-oas-file}";
+            current = value.package + (if value ? expected-oas-file then "/${expected-oas-file}" else "");
+          };
+        };
+    in
+    {
+      checks = lib.attrsets.concatMapAttrs package_gen name2package;
     };
 }
