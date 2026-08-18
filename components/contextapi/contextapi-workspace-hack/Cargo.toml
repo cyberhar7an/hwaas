@@ -58,7 +58,7 @@ tempfile = { version = "3" }
 tokio = { version = "1", features = ["full", "test-util", "tracing"] }
 tokio-stream = { version = "0.1", features = ["fs", "net"] }
 tokio-util = { version = "0.7", features = ["codec", "io"] }
-tower-http = { version = "0.6", default-features = false, features = ["cors", "limit", "request-id", "timeout", "trace"] }
+tower-http = { version = "0.7", default-features = false, features = ["cors", "limit", "request-id", "timeout", "trace"] }
 tracing = { version = "0.1", features = ["log"] }
 tracing-core = { version = "0.1" }
 url = { version = "2", features = ["serde"] }
