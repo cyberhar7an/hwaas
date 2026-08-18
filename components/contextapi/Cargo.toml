@@ -48,7 +48,7 @@ aide = { version = "0.13", features = [
   "macros",
 ] }
 anyhow = "1"
-axum = { version = "0.7", features = ["json", "macros", "multipart", "ws"] }
+axum = { version = "0.8", features = ["json", "macros", "multipart", "ws"] }
 either = { version = "1", features = ["use_std"] }
 assert_fs = "1"
 chrono = { version = "0.4", default-features = false, features = [

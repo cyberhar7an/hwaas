@@ -18,7 +18,7 @@ license="Apache-2.0"
 [dependencies]
 aho-corasick = { version = "1" }
 aide = { version = "0.13", default-features = false, features = ["axum-headers", "axum-multipart", "axum-ws", "macros"] }
-axum = { version = "0.7", features = ["macros", "multipart", "ws"] }
+axum = { version = "0.8", features = ["macros", "multipart", "ws"] }
 axum-extra = { version = "0.9", features = ["typed-header"] }
 bstr = { version = "1" }
 crossbeam-utils = { version = "0.8" }
