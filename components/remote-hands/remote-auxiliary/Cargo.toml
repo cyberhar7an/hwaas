@@ -27,7 +27,7 @@ aide = { version = "0.13", features = [
   "axum-ws",
   "macros",
 ] }
-axum = { version = "0.7", features = ["macros", "ws"] }
+axum = { version = "0.8", features = ["macros", "ws"] }
 enum_dispatch = "0.3"
 http = "1"
 hyper = { version = "1.0", features = ["full"] }

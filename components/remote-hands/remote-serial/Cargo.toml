@@ -27,7 +27,7 @@ aide = { version = "0.13", features = [
   "axum-ws",
   "macros",
 ] }
-axum = { version = "0.7", features = ["macros", "ws"] }
+axum = { version = "0.8", features = ["macros", "ws"] }
 schemars = "0.8"
 serde.workspace = true
 serde_json = "1"

@@ -17,7 +17,7 @@ license = "Apache-2.0"
 ### BEGIN HAKARI SECTION
 [dependencies]
 aide = { version = "0.13", default-features = false, features = ["axum-extra", "axum-ws", "macros"] }
-axum = { version = "0.7", features = ["macros", "ws"] }
+axum = { version = "0.8", features = ["macros", "ws"] }
 byteorder = { version = "1" }
 either = { version = "1", default-features = false, features = ["use_std"] }
 futures-channel = { version = "0.3", features = ["sink"] }
