@@ -42,7 +42,7 @@ tower-http = { version = "0.5.2", default-features = false, features = [
   "limit",
   "timeout",
 ] }
-axum = "0.7"
+axum = "0.8"
 futures = "0.3"
 reqwest-middleware = { version = "0.4", optional = true }
 reqwest = { version = "0.12.4", optional = true }
