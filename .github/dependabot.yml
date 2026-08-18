@@ -19,7 +19,13 @@ updates:
       - "lukeweston1234"
       - "lgrosche"
   - package-ecosystem: "cargo"
-    directory: "/components/"
+    directories:
+      - "/components/contextapi"
+      - "/components/hunt"
+      - "/components/net-ctrl"
+      - "/components/remote-hands"
+      - "/components/rpi-status-display"
+      - "/components/ws-gateway"
     schedule:
       interval: "daily"
     cooldown:
