@@ -21,7 +21,7 @@ unsafe_code = "forbid"
 
 [dependencies]
 afpacket = { version = "0.2.3", features = ["async-tokio"] }
-axum = { version = "0.7.9", features = ["ws", "macros"] }
+axum = { version = "0.8.9", features = ["ws", "macros"] }
 axum-extra = { version = "0.9.6", features = ["typed-routing", "typed-header"] }
 clap = { version = "4.0.18", features = ["derive"] }
 dashmap = "5.3.4"
