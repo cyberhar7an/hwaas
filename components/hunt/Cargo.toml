@@ -36,7 +36,7 @@ tracing-subscriber = { version = "0.3", features = [
 console-subscriber = "0.2"
 tracing = "0.1"
 tower = "0.4"
-tower-http = { version = "0.5.2", default-features = false, features = [
+tower-http = { version = "0.7.0", default-features = false, features = [
   "trace",
   "request-id",
   "limit",
