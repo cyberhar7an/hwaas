@@ -4,6 +4,17 @@
 
 { lib, runCommand }:
 
+/**
+  Execute nix unit tests.
+
+  # Inputs
+
+  `name`
+  : Name of the resulting test suite, must be a valid filename.
+
+  `tests`
+  : Individual tests to run.
+*/
 { name, tests }:
 let
   evaluatedTests =

@@ -2,8 +2,22 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+/**
+  Options and implementation for HWaaS user-tooling specific Nix unit tests.
+
+  The `config` input parameter is expected to comply with the module structure defined by this
+  function. Only the `tests` attribute must be supplied.
+
+  # Inputs
+
+  `config`
+  : A valid AttrSet complying with the module defined in this function.
+*/
 { lib, config, ... }:
 let
+  /**
+    Definition of a test case/assertion input AttrSet.
+  */
   assertionOptions = {
     check = lib.mkOption {
       type = lib.types.unspecified;
@@ -25,6 +39,9 @@ let
     };
   };
 
+  /**
+    Definition of a test case/assertion result AttrSet.
+  */
   resultOptions = {
     result = lib.mkOption { type = lib.types.bool; };
     message = lib.mkOption { type = lib.types.str; };

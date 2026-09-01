@@ -2,12 +2,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-# We evaluate the HWaaS test configuration for type validation. Since our
-# validation function is limited to actual added functionality, we filter
-# the configuration accordingly. The NixOS integration test has a
-# validation function as well, thus we need to filter out the additional
-# attributes from the HWaaS test driver to avoid evaluation failures.
-
 { pkgs }:
 let
   inherit (builtins)
@@ -26,6 +20,20 @@ helpers
 // {
   inherit checkTestconfig;
 
+  /**
+    Remove attributes unknown to the underlying NixOS integration testing functions.
+
+    # Inputs
+
+    `hwaasTestConfig`
+    : The full configuration for a HWaaS test.
+
+    # Type
+
+    ```
+    filterTestConfig :: AttrSet -> AttrSet
+    ```
+  */
   filterTestConfig =
     hwaasTestConfig:
     let
@@ -40,6 +48,20 @@ helpers
     in
     removeAttrs hwaasTestConfig hwaasConfigOnlyAttributes;
 
+  /**
+    Inject runtime dependencies for HWaaS user tooling into a HWaaS test.
+
+    # Inputs
+
+    `hwaasTestConfig`
+    : The full configuration for a HWaaS test.
+
+    # Type
+
+    ```text
+    mkTestConfig :: AttrSet -> AttrSet
+    ```
+  */
   mkTestConfig =
     {
       extraPythonPackages ? _: [ ],
@@ -60,6 +82,29 @@ helpers
         ++ extraPythonPackages pyPkgs;
     };
 
+  /**
+    Create a test script from a HWaaS test configuration and additional arguments.
+
+    During test script perparation, the `hwaasTestConfig` input is preprocessed and passed to the
+    underlying Python-based testing framework.
+
+    The `testScriptArgs` input is only used when the `testScript` attribute of the `hwaasTestConfig`
+    input is a function.
+
+    # Inputs
+
+    `hwaasTestConfig`
+    : The full configuration for a HWaaS test.
+
+    `testScriptArgs`
+    : Arbitrary arguments passed through to the test script unmodified.
+
+    # Type
+
+    ```
+    mkTestScript :: AttrSet -> Any -> String
+    ```
+  */
   mkTestScript =
     {
       name,
@@ -103,6 +148,9 @@ helpers
       ${testScript'}
     '';
 
+  /**
+    Create a NixOS integration test with `pkgs` predefined.
+  */
   mkTest =
     let
       standardNixosTestConfig = { lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; };

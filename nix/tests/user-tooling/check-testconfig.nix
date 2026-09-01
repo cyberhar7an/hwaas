@@ -2,7 +2,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-# Contains a few simple checks for the checkTestconfig function.
+/**
+  Run unit tests for the `checkTestconfig` function.
+*/
 { lib, runCommand }:
 let
   checkTestconfig = import ../../lib/user-tooling/check-testconfig { inherit lib; };
@@ -26,8 +28,14 @@ let
     '';
   };
 
+  /**
+    Dummy to generate a HWaaS machine configuration.
+  */
   machineConfig = { lib, ... }: { stateVersion = lib.trivial.release; };
 
+  /**
+    Wrap a HWaaS user configuration into a test case with an attached message.
+  */
   mkTest =
     {
       expected,
@@ -38,8 +46,14 @@ let
       check = checkTestconfig config;
       inherit message expected;
     };
-  testSuccess = attrs: mkTest ({ expected = true; } // attrs);
-  testFailure = attrs: mkTest ({ expected = false; } // attrs);
+  /**
+    Assume that a HWaaS user configuration evaluates successfully.
+  */
+  testSuccess = attrs: mkTest (attrs // { expected = true; });
+  /**
+    Assume that a HWaaS user configuration fails to evaluate.
+  */
+  testFailure = attrs: mkTest (attrs // { expected = false; });
 in
 nixUnittest {
   name = "checkTestconfig-test";
