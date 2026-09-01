@@ -5,7 +5,7 @@
 { pkgs, hwaasTestModules }:
 let
   testBase = ip1: ip2: {
-    apiUrl = "http://api.hwaas.placeholder.com/v5";
+    apiUrl = "http://api.hwaas.example/v5";
 
     extraPythonPackages = _: [ pkgs.hwaasTimer ];
 

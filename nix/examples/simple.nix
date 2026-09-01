@@ -13,7 +13,7 @@ in
   pingHWaaSMachine = pkgs.hwaasTest {
     name = "Ping HWaaS Machine via VLAN Test";
 
-    apiUrl = "http://api.hwaas.placeholder.com/v5";
+    apiUrl = "http://api.hwaas.example/v5";
 
     nodes.controlVM = { ... }: {
       imports = with hwaasTestModules; [ user-tooling-hwaasTestVm ];

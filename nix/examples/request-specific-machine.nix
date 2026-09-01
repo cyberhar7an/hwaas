@@ -13,7 +13,7 @@ in
 pkgs.hwaasTest {
   name = "Tests if a specific machine can be requested by id for a test";
 
-  apiUrl = "http://api.hwaas.placeholder.com/v5";
+  apiUrl = "http://api.hwaas.example/v5";
 
   nodes.controlVM = { ... }: {
     imports = with hwaasTestModules; [ user-tooling-hwaasTestVm ];

@@ -10,7 +10,7 @@ let
 
   goodConfig = {
     name = "Hello World Test";
-    apiUrl = "https://api.hwaas.placeholder.com/v5";
+    apiUrl = "https://api.hwaas.example/v5";
     machines.bmr1 = {
       image = "linux.img";
       platform = "bmrType1";

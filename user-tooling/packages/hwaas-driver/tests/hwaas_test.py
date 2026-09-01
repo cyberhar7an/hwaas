@@ -23,13 +23,13 @@ def basic_hwaas_responses():
             }
         }
         rsps.post(
-            url="http://api.hwaas.placeholder.com/v5/contexts",
+            url="http://api.hwaas.example/v5/contexts",
             body=DUMMY_UUID,
             status=200,
             match=[matchers.json_params_matcher(expected_json_rsd)],
         )
         rsps.delete(
-            url=f"http://api.hwaas.placeholder.com/v5/contexts/{DUMMY_UUID}",
+            url=f"http://api.hwaas.example/v5/contexts/{DUMMY_UUID}",
             status=200,
         )
         yield rsps
@@ -41,7 +41,7 @@ def test_hwaas_context_creation_and_destruction(basic_hwaas_responses):
             "bmr1": {"platform": "bmrType1"},
             "bmr2": {"platform": "bmrType1"},
         },
-        "apiUrl": "http://api.hwaas.placeholder.com/v5",
+        "apiUrl": "http://api.hwaas.example/v5",
     }
 
     hws = Hwaas(hwaas_configuration)
@@ -51,7 +51,7 @@ def test_hwaas_context_creation_and_destruction(basic_hwaas_responses):
 def test_hwaas_network_creation_works(basic_hwaas_responses):
     expected_netsetup = {"bmr1": {"LAN0": {}, "LAN1": {}}, "bmr2": {"LAN0": {}}}
     basic_hwaas_responses.put(
-        url=f"http://api.hwaas.placeholder.com/v5/contexts/{DUMMY_UUID}/networks/network1",
+        url=f"http://api.hwaas.example/v5/contexts/{DUMMY_UUID}/networks/network1",
         status=200,
         match=[matchers.json_params_matcher(expected_netsetup)],
     )
@@ -64,7 +64,7 @@ def test_hwaas_network_creation_works(basic_hwaas_responses):
         "networks": {
             "network1": {"bmr1": {"LAN0": {}, "LAN1": {}}, "bmr2": {"LAN0": {}}}
         },
-        "apiUrl": "http://api.hwaas.placeholder.com/v5",
+        "apiUrl": "http://api.hwaas.example/v5",
     }
 
     hws = Hwaas(hwaas_configuration)

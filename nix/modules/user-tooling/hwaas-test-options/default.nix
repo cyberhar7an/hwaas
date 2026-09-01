@@ -23,7 +23,7 @@ let
       description = ''
         The HWaaS machine platform specifier. A list of machines is available
         using
-        `curl -X 'GET' 'http://api.hwaas.placeholder.com/v5/inventory' -H 'accept: application/json'`
+        `curl -X 'GET' 'http://api.hwaas.example/v5/inventory' -H 'accept: application/json'`
       '';
     };
     machine_id = mkOption {
@@ -37,6 +37,7 @@ let
         Possible ids can be found in the corresponding documentation.
 
         It is not recommended to use this option as it can slow down the provision of the tests.
+        Instead, prefer to request machines based on attributes where possible.
       '';
     };
     image = mkOption {
@@ -85,7 +86,7 @@ in
       description = ''
         The URL of the HWaaS API.
       '';
-      example = "https://api.hwaas.placeholder.com/v5";
+      example = "https://api.hwaas.example/v5";
     };
 
     machines = mkOption {

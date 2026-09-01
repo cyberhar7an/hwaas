@@ -55,7 +55,7 @@ class HwaasConnector:
     which acts as the root of the api endpoint.
 
     The root may look something like this:
-    ```http://api.hwaas.placeholder.com/v5/```
+    ```http://api.hwaas.example/v5/```
     and the exact endpoint URI is passed to functions
     relative to this base Url.
     """

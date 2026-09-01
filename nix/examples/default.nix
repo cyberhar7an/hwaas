@@ -23,7 +23,7 @@ in
     {
       checks = {
         # Current expected issue:
-        # error: NameResolutionError on api.hwaas.placeholder.com
+        # error: NameResolutionError on api.hwaas.example
         # TODO: use virtualized environment
 
         # user-tooling-example-simple-pingHWaaSMachine = (import ./simple.nix {
