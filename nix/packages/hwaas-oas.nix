@@ -5,15 +5,16 @@
 {
   runCommand,
   contextapi,
-  remote-hands-oas,
+  extra-oas,
+  lib,
 }:
 runCommand "generate-hwaas-openapi-json" { } ''
   ARGS=""
-  for F in ${remote-hands-oas}/*.json; do
+  for F in ${lib.concatStringsSep " " extra-oas}; do
     ARGS="$ARGS --remote-oas-paths $F"
   done
 
-  ${contextapi}/bin/openapi-generator \
+  ${contextapi}/bin/contextapi-openapi-generator \
     -vv $ARGS \
     --out-file $out
 

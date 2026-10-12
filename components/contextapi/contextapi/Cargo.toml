@@ -18,7 +18,7 @@ name = "contextapi"
 path = "src/main.rs"
 
 [[bin]]
-name = "openapi-generator"
+name = "contextapi-openapi-generator"
 path = "src/bin/openapi-generator.rs"
 
 [lints]

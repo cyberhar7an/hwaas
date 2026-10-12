@@ -135,17 +135,26 @@ jobs:
         name: build remote-auxiliary
         run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-auxiliary'
       - if: always()
-        name: build remote-hands-oas
-        run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-hands-oas'
+        name: build remote-auxiliary-oas
+        run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-auxiliary-oas'
       - if: always()
         name: build remote-power
         run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-power'
       - if: always()
+        name: build remote-power-oas
+        run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-power-oas'
+      - if: always()
         name: build remote-serial
         run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-serial'
       - if: always()
+        name: build remote-serial-oas
+        run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-serial-oas'
+      - if: always()
         name: build remote-usb
         run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-usb'
+      - if: always()
+        name: build remote-usb-oas
+        run: nix build --accept-flake-config -L --show-trace '.#packages.x86_64-linux.remote-usb-oas'
   build-rpi-status-display:
     name: 'Build: rpi-status-display'
     needs:
@@ -383,11 +392,23 @@ jobs:
         name: check openapi-spec-contextapi-golden-test
         run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-contextapi-golden-test'
       - if: always()
+        name: check openapi-spec-hwaas-golden-test
+        run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-hwaas-golden-test'
+      - if: always()
         name: check openapi-spec-net-ctrl-golden-test
         run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-net-ctrl-golden-test'
       - if: always()
-        name: check openapi-spec-remote-hands-golden-test
-        run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-remote-hands-golden-test'
+        name: check openapi-spec-remote-auxiliary-golden-test
+        run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-remote-auxiliary-golden-test'
+      - if: always()
+        name: check openapi-spec-remote-power-golden-test
+        run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-remote-power-golden-test'
+      - if: always()
+        name: check openapi-spec-remote-serial-golden-test
+        run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-remote-serial-golden-test'
+      - if: always()
+        name: check openapi-spec-remote-usb-golden-test
+        run: nix build --accept-flake-config -L --show-trace '.#checks.x86_64-linux.openapi-spec-remote-usb-golden-test'
   check-pre-commit:
     name: 'Check: pre-commit'
     needs: []
