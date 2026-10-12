@@ -167,7 +167,7 @@ reqwest-middleware = { version = "0.5", default-features = false, features = [
   "rustls",
 ] }
 reqwest_cookie_store = { version = "0.10", default-features = false }
-rppal = { version = "0.14.1", default-features = false, features = ["hal"] }
+rppal = { version = "0.15.0", default-features = false, features = ["hal"] }
 schemars = { version = "0.8", default-features = false, features = [
   "derive",
   "uuid",
