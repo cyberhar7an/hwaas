@@ -9,7 +9,7 @@
   /**
     Wrapper for `runCommand`, usually taken from `pkgs`.
   */
-  runCommand,
+  runCommandLocal,
   /**
     Package providing the `jd` executable.
   */
@@ -27,7 +27,7 @@
   */
   current,
 }:
-runCommand "openapi-spec-golden-test" { } ''
+runCommandLocal "openapi-spec-golden-test" { } ''
   mkdir -p $out
 
   echo "validating OpenAPI specification '${current}'"

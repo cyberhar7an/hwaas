@@ -23,7 +23,7 @@ _: {
       oas-packages =
         lib.concatMapAttrs
           (name: value: {
-            ${name + "-oas"} = pkgs.runCommand ("generate-" + name + "-openapi-json") { } ''
+            ${name + "-oas"} = pkgs.runCommandLocal ("generate-" + name + "-openapi-json") { } ''
               generator="${lib.getExe' value (name + "-openapi-generator")}"
 
               if [[ "${name}" =~ ^remote- ]]; then

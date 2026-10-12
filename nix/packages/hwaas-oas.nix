@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 {
-  runCommand,
+  runCommandLocal,
   contextapi,
   extra-oas,
   lib,
 }:
-runCommand "generate-hwaas-openapi-json" { } ''
+runCommandLocal "generate-hwaas-openapi-json" { } ''
   ARGS=""
   for F in ${lib.concatStringsSep " " extra-oas}; do
     ARGS="$ARGS --remote-oas-paths $F"
