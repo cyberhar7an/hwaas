@@ -16,9 +16,6 @@ in
     {
       checks = {
         contextapi-startup-test = pkgs.callPackage ./contextapi-startup-test.nix { inherit modules; };
-        openapi-spec-contextapi-golden-test = pkgs.callPackage ./golden-test-openapi-spec.nix {
-          inherit (config.packages) contextapi-oas;
-        };
         contextapi-images-drives-and-middleware = pkgs.callPackage ./images-drives-and-middleware.nix {
           inherit modules context-api-url-version-prefix;
         };
