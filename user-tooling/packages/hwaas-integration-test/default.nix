@@ -138,12 +138,7 @@ helpers
     pkgs.testers.runNixOSTest {
       imports = [
         "${../../../nix/modules/user-tooling/hwaas-test-options/default.nix}"
-        (
-          (mkTestConfig hwaasTestConfig)
-          // {
-            testScript = lib.mkForce (lib.traceVal (mkTestScript hwaasTestConfig));
-          }
-        )
+        ((mkTestConfig hwaasTestConfig) // { testScript = lib.mkForce (mkTestScript hwaasTestConfig); })
         ({ lib, ... }: { config.hostPkgs = lib.mkDefault pkgs; })
       ];
     };
