@@ -218,7 +218,7 @@ impl DbFacade {
         };
         let query_result = conn.interact(query).await.map_err(|e| match e {
             InteractError::Panic(_) => DatabaseInteractionError::SpawnedInteractionPanic,
-            InteractError::Aborted => DatabaseInteractionError::AbortedSpawnedInteraction,
+            InteractError::Cancelled => DatabaseInteractionError::AbortedSpawnedInteraction,
         })?;
         query_result.map_err(DatabaseInteractionError::DbCallFailure)
     }
